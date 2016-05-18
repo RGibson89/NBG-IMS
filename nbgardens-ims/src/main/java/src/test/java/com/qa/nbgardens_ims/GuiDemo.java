@@ -1,4 +1,4 @@
-package com.qa.nbgardens_ims;
+package src.test.java.com.qa.nbgardens_ims;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
