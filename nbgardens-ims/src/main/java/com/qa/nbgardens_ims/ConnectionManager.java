@@ -2,7 +2,7 @@ package src.main.java.com.qa.nbgardens_ims;
 import java.sql.*;
 
 
-public class ConnectManager {
+public class ConnectionManager {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/myDB";
