@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package test.java.com.qa.nbgardens_ims;
+=======
+package src.test.java.com.qa.nbgardens_ims;
+>>>>>>> c8cfc72ff40b2afca401a1f759e16d97d6e29f36
 
 import junit.framework.Test;
 import junit.framework.TestCase;
