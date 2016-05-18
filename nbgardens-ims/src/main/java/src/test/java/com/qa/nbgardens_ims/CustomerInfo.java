@@ -7,7 +7,15 @@ import java.sql.Statement;
 
 public class CustomerInfo {
 
-	public static int login (String email, String password)
+	private int customerID;                                                                                                                    omerID;
+	private String forename;
+	private int credit;
+	private String status;
+
+	//todo - constructors
+
+
+	public void login (String email, String password)
 	{
 	
 		//NB - close statements and resultsets after use
@@ -39,15 +47,17 @@ public class CustomerInfo {
 			
 			if (!rs.isBeforeFirst())
 			{
-				//this triggers if the email and password don't match, translate the returned int in the calling class
-				//"Login failed, incorrect username or password.";
-				return 0;
+				//this triggers if the email and password don't match
+				System.out.println("Login failed, incorrect username or password.");
 			}
 			
 			else 
 			{
-				 int customerID = rs.getInt("IDCustomer");
-				 return customerID;
+				 this.customerID = rs.getInt("IDCustomer");
+				 
+				 System.out.println("Login successful")
+				 //maybe say welcome name
+				 //search customer db for customerID and return name
 			}
 			
 		} 
@@ -61,10 +71,27 @@ public class CustomerInfo {
 		//nb - close connections
 		
 		//This shouldn't trigger, just there so there is a return
-		//"Something has gone wrong with logging in";
-		return -1;
+		System.out.println("Something has gone wrong with logging in");
+		
 		
 	}
 	
 	
+	public void logout()
+	{
+	
+		this.customerID = null;
+		this.forename = null;
+		this.credit = null;
+		this.status = null;
+	
+	}
+	
+	
+	public int checkCredit()
+	{
+	
+		return this.credit;
+	
+	}
 }
