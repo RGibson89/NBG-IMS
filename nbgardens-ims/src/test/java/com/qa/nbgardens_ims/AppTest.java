@@ -1,4 +1,4 @@
-package com.qa.nbgardens_ims;
+package test.java.com.qa.nbgardens_ims;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -33,6 +33,7 @@ public class AppTest
      */
     public void testApp()
     {
+    	System.out.println("Hello");
         assertTrue( true );
     }
 }
