@@ -1,4 +1,4 @@
-package com.qa.nbgardens_ims;
+package src.main.java.com.qa.nbgardens_ims;
 
 /**
  * Hello world!
