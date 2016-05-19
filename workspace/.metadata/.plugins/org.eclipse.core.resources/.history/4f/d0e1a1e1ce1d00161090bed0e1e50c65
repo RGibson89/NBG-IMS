@@ -1,7 +1,6 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 public class CustomerInfo {
 
@@ -85,8 +84,7 @@ public class CustomerInfo {
 	
 	}
 	
-	public void register(String forname, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress){
-		
+	public void register(){
 		
 		
 		
