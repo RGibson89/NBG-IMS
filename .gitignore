@@ -17,5 +17,5 @@ hs_err_pid*
 #This should ignore everything except for the src and test folders
 
 *
-!workspace/src
-!workspace/src/Test
+!workspace/NBGardens/src
+!workspace/NBGardens/src/Test
