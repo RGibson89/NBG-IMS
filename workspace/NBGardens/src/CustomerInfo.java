@@ -10,6 +10,7 @@ public class CustomerInfo {
 	private String status;
 
 	//TODO - constructors
+	//comment so this is changed for git purposes, can be removed
 
 
 	public void login (String email, String password)
