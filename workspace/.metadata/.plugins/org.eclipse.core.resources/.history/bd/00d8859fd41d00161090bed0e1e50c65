@@ -11,7 +11,6 @@ public class CustomerInfo {
 	private String status;
 
 	//TODO - constructors
-	//comment so this is changed for git purposes, can be removed
 
 
 	public void login (String email, String password)
@@ -86,7 +85,7 @@ public class CustomerInfo {
 	
 	}
 	
-	public void register(String forname, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress){
+	public void register(String forname, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress, ){
 		
 		
 		
