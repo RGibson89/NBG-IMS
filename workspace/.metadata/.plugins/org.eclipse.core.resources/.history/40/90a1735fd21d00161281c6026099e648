@@ -6,18 +6,16 @@ int quantityInStock;
 double weight;
 double price;
 
-
-
-
-public Product(String name, String description, int productID, int quantityInStock, double weight, double price) 
+public Product()
 {
-	this.name = name;
-	this.description = description;
-	this.productID = productID;
-	this.quantityInStock = quantityInStock;
-	this.weight = weight;
-	this.price = price;
+	
+	
+	
 }
+
+
+
+
 
 
 
