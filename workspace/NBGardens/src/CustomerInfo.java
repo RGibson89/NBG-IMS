@@ -92,6 +92,7 @@ public class CustomerInfo {
 		
 		Statement stmt = null;
 		ResultSet rs = null;
+		int passwordHash = password.hashCode();
 		
 		try {
 			stmt = ConnectionManager.conn.createStatement();
@@ -102,7 +103,7 @@ public class CustomerInfo {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
 		String formattedDate = sdf.format(date);
-		String select = "INSERT INTO Customer VALUES ( , "+ forename + ", "+ surname + ", "+ _DoB + ", "+ houseNumber + ", "+ postcode + ", "+ creditCheck + ", \"active\", "+ phoneNumber + ", "+ emailAddress + ", 10000, "+ gender + ", "+ forename + ", " + formattedDate + ")" ;
+		String select = "INSERT INTO Customer VALUES ( , "+ forename + ", "+ surname + ", "+ _DoB + ", "+ houseNumber + ", "+ postcode + ", "+ creditCheck + ", \"active\", "+ phoneNumber + ", "+ emailAddress + ", 10000, "+ gender + ", "+ forename + ", " + formattedDate + ", " + passwordHash + ")" ;
 		
 		try {
 			rs = stmt.executeQuery(select);
@@ -111,32 +112,10 @@ public class CustomerInfo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int passwordHash = password.hashCode();
-		setPassword(emailAddress, passwordHash);
+		
+
 	}
 	
-	public void setPassword(String emailAddress, int passwordHash){
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			stmt = ConnectionManager.conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		String select = "INSERT INTO Customer Login Details VALUES (" + this.customerID + ", " + emailAddress + ", " + passwordHash + ")" ;
-		
-		try {
-			rs = stmt.executeQuery(select);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
 	
 	public int checkCredit()
 	{
