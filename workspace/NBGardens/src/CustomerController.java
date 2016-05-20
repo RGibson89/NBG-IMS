@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.lang.String;
 
-public class CustomerInfo {
+public class CustomerController {
 
-	private int customerID;                                                                                                                  
+	private int idCustomer;                                                                                                                  
 	private String forename;
 	private int credit;
 	private String status;
@@ -22,6 +22,7 @@ public class CustomerInfo {
 		//NB - close statements and resultsets after use
 		Statement stmt = null;
 		ResultSet rs = null;
+		int passwordHash = password.hashCode();
 		
 		try {
 			stmt = ConnectionManager.conn.createStatement();
@@ -33,7 +34,7 @@ public class CustomerInfo {
 		//fucking insecure
 		//String select = "SELECT Login Password FROM mydb.online Login Details where Login email = " + email + ";";
 		
-		String select = "SELECT IDcustomer FROM mydb.online Customer Login Details where Login email = " + email + " Login Password = " + password + ";";
+		String select = "SELECT IDcustomer FROM mydb.online Customer WHERE Email = " + email + " AND CustomerPassword = " + passwordHash + ";";
 		
 		
 		
@@ -54,11 +55,11 @@ public class CustomerInfo {
 			
 			else 
 			{
-				 this.customerID = rs.getInt("IDCustomer");
+				 this.idCustomer = rs.getInt("IDCustomer");
 				 
 				 System.out.println("Login successful");
 				 //maybe say welcome name
-				 //search customer db for customerID and return name
+				 //search customer db for idCustomer and return name
 			}
 			
 		} 
@@ -81,7 +82,7 @@ public class CustomerInfo {
 	public void logout()
 	{
 	
-		this.customerID = 0;
+		this.idCustomer = 0;
 		this.forename = null;
 		this.credit = 0;
 		this.status = null;
@@ -112,9 +113,9 @@ public class CustomerInfo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
 	}
+	
+	
 	
 	
 	public int checkCredit()
