@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.lang.String;
 
 public class CustomerInfo {
 
@@ -11,13 +12,13 @@ public class CustomerInfo {
 	private int credit;
 	private String status;
 
+
 	//TODO - constructors
 	//comment so this is changed for git purposes, can be removed
 
 
 	public void login (String email, String password)
-	{
-	
+	{			
 		//NB - close statements and resultsets after use
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -32,7 +33,7 @@ public class CustomerInfo {
 		//fucking insecure
 		//String select = "SELECT Login Password FROM mydb.online Login Details where Login email = " + email + ";";
 		
-		String select = "SELECT IDcustomer FROM mydb.online Login Details where Login email = " + email + " Login Password = " + password + ";";
+		String select = "SELECT IDcustomer FROM mydb.online Customer Login Details where Login email = " + email + " Login Password = " + password + ";";
 		
 		
 		
@@ -87,7 +88,7 @@ public class CustomerInfo {
 	
 	}
 	
-	public void register(String forename, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress, String gender){
+	public void register(String forename, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress, String gender, String password){
 		
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -105,6 +106,30 @@ public class CustomerInfo {
 		
 		try {
 			rs = stmt.executeQuery(select);
+			System.out.println("Thank you " + forename + " for joining NB Gardens!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int passwordHash = password.hashCode();
+		setPassword(emailAddress, passwordHash);
+	}
+	
+	public void setPassword(String emailAddress, int passwordHash){
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String select = "INSERT INTO Customer Login Details VALUES (" + this.customerID + ", " + emailAddress + ", " + passwordHash + ")" ;
+		
+		try {
+			rs = stmt.executeQuery(select);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,7 +137,6 @@ public class CustomerInfo {
 		
 		
 	}
-	
 	
 	public int checkCredit()
 	{
