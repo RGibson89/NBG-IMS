@@ -1,6 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerInfo {
@@ -86,9 +87,28 @@ public class CustomerInfo {
 	
 	}
 	
-	public void register(String forname, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress){
+	public void register(String forename, String surname, Date _DoB, String houseNumber, String postcode, String creditCheck, String status, String phoneNumber, String emailAddress, String gender){
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
+		String formattedDate = sdf.format(date);
+		String select = "INSERT INTO Customer VALUES ( , "+ forename + ", "+ surname + ", "+ _DoB + ", "+ houseNumber + ", "+ postcode + ", "+ creditCheck + ", \"active\", "+ phoneNumber + ", "+ emailAddress + ", 10000, "+ gender + ", "+ forename + ", " + formattedDate + ")" ;
+		
+		try {
+			rs = stmt.executeQuery(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
