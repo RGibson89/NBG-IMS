@@ -50,18 +50,20 @@ public class Search {
 	
 	
 	}
-		
-	ArrayList<String>[] searchKeywords;
-	double priceLow;
-	double priceHigh;
-	Search (String[][] keywordBox, double priceLow, double priceHigh, String catagory){
-		searchKeywords = query;
-		for (String keyword : searchKeywords){
-			if description.contains(keyword){
+	public double scan(TextBox textBox, String highLow){
+		try{
+		x = parsedouble(read.textbox);
+		return x;
+		}
+		catch(NumberFormatException){
+		  	if (highLow.equals("high")){
+		 		return 10000;
 			}
+		  	else if (highLow.equals("low")){
+		  		return 0;
+		  	}	
 		}
 	}
-	
 }
 //	
 //	'" + keywordBox[ + "' " + check(keyword1andor) + " '" + read(keywordBox2) + "' " + check(keyword2andor) + " '" read(keywordBox3) + "' " + check(keyword1andor) + " '" + read(keywordBox4)
