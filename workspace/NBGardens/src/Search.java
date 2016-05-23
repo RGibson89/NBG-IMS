@@ -46,7 +46,7 @@ public class Search {
 		searchLine = searchLine + "''";
 		
 	String stmt = "select Name, Description, Catagory, Weight, Price, Product_status  from PRODUCT WHERE description contains "
-			+ searchLine + "' and WHERE price < " + scan(priceHighBox, high) + " and WHERE price > " + scan(priceLowBox, low);
+			+ searchLine + "' and WHERE price < " + scan(priceHighBox, "high") + " and WHERE price > " + scan(priceLowBox, "low");
 	
 	
 	}

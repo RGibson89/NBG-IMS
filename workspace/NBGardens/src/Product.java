@@ -1,11 +1,14 @@
 public class Product {
+int productID;
 String name;
 String description;
-int productID;
-int quantityInStock;
+String catagory;
 double weight;
 double price;
-
+String product status;
+int quantityInStock;
+int default stock quantity;
+String minimum stiock level
 
 
 
