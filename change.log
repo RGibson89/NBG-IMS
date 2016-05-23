@@ -1,0 +1,68 @@
+package jDBCGUI;
+import java.sql.*;
+
+public class Customer {
+
+	
+	public static void viewCustomer()
+	{
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = ConnectManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String select = "SELECT * FROM mydb.customer where customerID < 7;";
+		
+		try {
+			rs = stmt.executeQuery(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			while (rs.next())
+			{
+				System.out.println(rs.getInt("customerID"));
+				System.out.println(rs.getString("emailAddress"));
+				System.out.println(rs.getString("Surname"));
+				System.out.println(rs.getString("FirstName"));
+				
+				//Don't print otherName field if it is empty
+				if(rs.getString("otherNames") != null)
+				{
+					System.out.println(rs.getString("otherNames"));
+				}
+				
+				System.out.println(rs.getString("gender"));
+				System.out.println(rs.getInt("customerStatus"));
+				System.out.println(rs.getInt("customerCredit"));
+				System.out.println(rs.getString("Address_postcode"));
+				System.out.println(rs.getString("Address_addressLine1"));
+				System.out.println(rs.getString("contactNumber"));
+				System.out.println();
+				
+			}
+		} 
+		
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//nb - close connections
+		
+		
+		
+	}
+	
+	
+	
+}
