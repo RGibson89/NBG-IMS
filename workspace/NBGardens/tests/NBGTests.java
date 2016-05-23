@@ -30,21 +30,21 @@ public class NBGTests {
 	}
 	
 	@Test
-	public void checkCorrectLogin() {
-		/*
-		 * Tests to check if login authentification returns works correctly
-		 */
-		
-		try {
-			CustomerLogin checkLogin = new CustomerLogin();
-			assertEquals(3, checkLogin.login("harryR@gmail.com", "Harry123"));
-			System.out.println("Login auth -- correct data -- test - Passed");
-				
-		} catch(Exception exc) {
-			System.out.println("Login auth -- correct data -- test - Failed");
-		}
-		
+public void checkCorrectLogin() {
+	/*
+	 * Tests to check if login authentification returns works correctly
+	 */
+	
+	try {
+		CustomerController checkLogin = new CustomerController();
+		assertEquals(3, checkLogin.login("harryR@gmail.com", "Harry123"));
+		System.out.println("Login auth -- correct data -- test - Passed");
+			
+	} catch(Exception exc) {
+		System.out.println("Login auth -- correct data -- test - Failed");
 	}
+	
+}
 	
 	@Test
 	public void checkIncorrectLogin() {
@@ -62,4 +62,19 @@ public class NBGTests {
 	}
 	
 }
-		
+
+@Test
+public void checkRegistration(){
+	/*
+	 * Tests to check if a customer is added when the register command completes
+	 */
+	try {
+		CustomerController checkRegister = new CustomerController();
+		assertEquals(1,checkRegister.register("James", "Farrell", "1992-01-21", "1", "PP4 IC1", "passed", "07011111111", "james@farrell.com", "Male", "hello"));
+		System.out.println("Login auth -- correct data -- test - Passed");
+			
+	} catch(Exception exc) {
+		System.out.println("Login auth -- correct data -- test - Failed");
+	}
+	
+}
