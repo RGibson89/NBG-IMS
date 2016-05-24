@@ -98,7 +98,7 @@ public class CustomerController {
 	
 	}
 	
-	public int register(String forename, String surname, String _DoB, String houseNumber, String postcode, String creditCheck, String phoneNumber, String emailAddress, String gender, String password){
+	public void register(String forename, String surname, String _DoB, String houseNumber, String postcode, String creditCheck, String phoneNumber, String emailAddress, String gender, String password){
 		
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -118,11 +118,9 @@ public class CustomerController {
 	try {
 		rs = stmt.executeQuery(select);
 		System.out.println("Thank you " + forename + " for joining NB Gardens!");
-		return 1;
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return 0;
 	}
 }
 	
