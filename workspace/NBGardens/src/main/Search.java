@@ -1,4 +1,7 @@
+package main;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -39,15 +42,46 @@ public class Search {
 			h++;
 		}
 		h = 1;
+		searchLine = searchLine + "(";
 		for (String b : keyWordBox){
 			searchLine = searchLine + "'" + keyWordBox[h] + "' or ";
 			h++;
 		}
-		searchLine = searchLine + "''";
+		searchLine = searchLine + "'')";
 		
-	String stmt = "select Name, Description, Catagory, Weight, Price, Product_status  from PRODUCT WHERE description contains "
+	String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review from PRODUCT WHERE description contains "
 			+ searchLine + "' and WHERE price < " + scan(priceHighBox, "high") + " and WHERE price > " + scan(priceLowBox, "low");
 	
+	Statement stmt = null;
+	ResultSet rs = null;
+	
+	try {
+		stmt = ConnectionManager.conn.createStatement();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	try {
+		 rs = stmt.executeQuery(select);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}	
+	
+	while (rs.next());{
+		int productID = rs.getInt("idProduct");
+		String name = rs.getString("Name");
+		String description = rs.getString("Description");
+		String category = rs.getString("Category");
+		double weight = rs.getDouble("Weight");
+		double price = rs.getDouble("Price");
+		String productStatus = rs.getString("ProductStatus");
+		int quantityInStock = rs.getInt("ProductStockQuantity");
+		int defaultStockQuantity = rs.getInt("DefaultStockLevel");
+		String minimumStockLevel = rs.getString("MinimumStockLevel");
+		int Review = rs.getInt("Review");
+		
+		Product product = new Product(int productID, String name, String description, String category, double weight, double price, String productStatus, int quantityInStock,  int defaultStockQuantity, String minimumStockLevel, int Review)
+	}
 	
 	}
 	public double scan(TextBox textBox, String highLow){
