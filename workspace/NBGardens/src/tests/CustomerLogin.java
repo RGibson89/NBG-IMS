@@ -1,4 +1,4 @@
-package src.tests;
+package tests;
 
 
 import java.sql.ResultSet;
