@@ -1,4 +1,4 @@
-package src.main;
+package main;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

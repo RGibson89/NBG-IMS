@@ -1,4 +1,4 @@
-package src.main;
+package main;
 public class Product {
 	int productID;
 	String name;
