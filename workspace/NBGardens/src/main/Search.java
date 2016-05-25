@@ -1,4 +1,12 @@
 package main;
+
+
+
+
+
+
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -6,7 +14,7 @@ import java.util.ArrayList;
 
 
 public class Search {
-	
+	ArrayList<Product> productList = new ArrayList<>();
 	
 	
 	public void search(){
@@ -49,54 +57,59 @@ public class Search {
 		}
 		searchLine = searchLine + "'')";
 		
-	String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review from PRODUCT WHERE description contains "
+		String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review from PRODUCT WHERE description contains "
 			+ searchLine + "' and WHERE price < " + scan(priceHighBox, "high") + " and WHERE price > " + scan(priceLowBox, "low");
 	
-	Statement stmt = null;
-	ResultSet rs = null;
-	
-	try {
-		stmt = ConnectionManager.conn.createStatement();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	
-	try {
-		 rs = stmt.executeQuery(select);
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}	
-	
-	while (rs.next());{
-		int productID = rs.getInt("idProduct");
-		String name = rs.getString("Name");
-		String description = rs.getString("Description");
-		String category = rs.getString("Category");
-		double weight = rs.getDouble("Weight");
-		double price = rs.getDouble("Price");
-		String productStatus = rs.getString("ProductStatus");
-		int quantityInStock = rs.getInt("ProductStockQuantity");
-		int defaultStockQuantity = rs.getInt("DefaultStockLevel");
-		String minimumStockLevel = rs.getString("MinimumStockLevel");
-		int Review = rs.getInt("Review");
+		select.
 		
-		Product product = new Product(int productID, String name, String description, String category, double weight, double price, String productStatus, int quantityInStock,  int defaultStockQuantity, String minimumStockLevel, int Review)
-	}
+		
+		Statement stmt = null;
+		ResultSet rs = null;
 	
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			 rs = stmt.executeQuery(select);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		while (rs.next());{
+			int productID = rs.getInt("idProduct");
+			String name = rs.getString("Name");
+			String description = rs.getString("Description");
+			String category = rs.getString("Category");
+			double weight = rs.getDouble("Weight");
+			double price = rs.getDouble("Price");
+			String productStatus = rs.getString("ProductStatus");
+			int quantityInStock = rs.getInt("ProductStockQuantity");
+			int defaultStockQuantity = rs.getInt("DefaultStockLevel");
+			String minimumStockLevel = rs.getString("MinimumStockLevel");
+			int Review = rs.getInt("Review");
+			
+			Product product = new Product(productID, name, description, category, weight, price, productStatus, quantityInStock,  defaultStockQuantity, minimumStockLevel, Review);
+			productList.add(product);
+		}
+		
 	}
 	public double scan(TextBox textBox, String highLow){
+		double x;
 		try{
-		x = parsedouble(read.textbox);
-		return x;
+			x = parsedouble(read.textbox);
 		}
 		catch(NumberFormatException){
 		  	if (highLow.equals("high")){
-		 		return 10000;
+		 		x = 10000;
 			}
 		  	else if (highLow.equals("low")){
-		  		return 0;
+		  		x = 0;
 		  	}	
 		}
+		return x;
 	}
 }
 //	
