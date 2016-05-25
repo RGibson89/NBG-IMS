@@ -128,18 +128,18 @@ public class SearchFunction {
 	}
 	
 	public double scan(String textBox, String highLow){
-		double x;
-		//try{
+		double x = 0;
+		try{
 			x = Double.parseDouble(textBox);
-		//}
-		//catch(NumberFormatException){
-		//  	if (highLow.equals("high")){
-		// 		x = 10000;
-		//	}
-		//  	else if (highLow.equals("low")){
-		//  		x = 0;
-		//  	}	
-	//	}
+		}
+		catch(NumberFormatException a){
+		  	if (highLow.equals("high")){
+		 		x = 10000;
+			}
+		  	else if (highLow.equals("low")){
+		  		x = 0;
+		  	}	
+		}
 		return x;
 	}
 }
