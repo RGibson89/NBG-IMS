@@ -145,12 +145,14 @@ public class SearchFunction {
 					relevanceMax = relevance;
 				}
 		}
-		for (Product product: productList){
-			int relevance = product.getRelevance();
-			if (relevance = relevanceMax){
-				
+		for (int i = relevanceMax; i>0 ; i--){
+			for (Product product: productList){
+				int relevance = product.getRelevance();
+				if (relevance == relevanceMax){
+					productListSorted.add(product);
+				}
 			}
-		}
+		}	
 	}
 	
 	
