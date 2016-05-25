@@ -1,4 +1,4 @@
-package tests;
+package src.tests;
 
 import java.sql.*;
 
@@ -6,11 +6,11 @@ import java.sql.*;
 public class ConnectionManager {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://db4free.net:3306/nbgardens";
+	static final String DB_URL = "jdbc:mysql://192.168.1.102:3306/ngb";
 	
 	//db2.modwest.com
 	
-	static final String USER = "nbgroot";
+	static final String USER = "root";
 	static final String PASS = "NBGletmein16";
 	
 	static Connection conn = null;
@@ -42,13 +42,7 @@ public class ConnectionManager {
 		  e.printStackTrace();
 		  
 		}
-	  
-	  
- 
 	}
-		  
-		  
-		  
 		  
 	//this closes the statement	  
 	public static void closeStatement()	  

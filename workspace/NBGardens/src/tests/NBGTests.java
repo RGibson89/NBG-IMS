@@ -1,10 +1,11 @@
-package tests;
+package src.tests;
+
 
 import static org.junit.Assert.*;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.junit.Test;
 
@@ -30,21 +31,21 @@ public class NBGTests {
 	}
 	
 	@Test
-public void checkCorrectLogin() {
-	/*
-	 * Tests to check if login authentification returns works correctly
-	 */
-	
-	try {
-		CustomerController checkLogin = new CustomerController();
-		assertEquals(3, checkLogin.login("harryR@gmail.com", "Harry123"));
-		System.out.println("Login auth -- correct data -- test - Passed");
-			
-	} catch(Exception exc) {
-		System.out.println("Login auth -- correct data -- test - Failed");
+	public void checkCorrectLogin() {
+		/*
+		 * Tests to check if login authentification returns works correctly
+		 */
+		
+		try {
+			CustomerLogin checkLogin = new CustomerLogin();
+			assertEquals(3, checkLogin.login("harryR@gmail.com", "Harry123"));
+			System.out.println("Login auth -- correct data -- test - Passed");
+				
+		} catch(Exception exc) {
+			System.out.println("Login auth -- correct data -- test - Failed");
+		}
+		
 	}
-	
-}
 	
 	@Test
 	public void checkIncorrectLogin() {
@@ -62,44 +63,6 @@ public void checkCorrectLogin() {
 	}
 	
 
-
-@Test
-public void checkRegistration(){
-	/*
-	 * Tests to check if a customer is added when the register command completes
-	 */
-		CustomerController checkRegister = new CustomerController();
-		checkRegister.register("James", "Farrell", "1992-01-21", "1", "PP4 IC1", "passed", "07011111111", "james@farrell.com", "Male", "hello");
-		
-		
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			stmt = ConnectionManager.conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String select = "SELECT `Customer_idCustomer` FROM `customer login details` WHERE `Login email` = \"james@farrell.com\"";
-		
-		
-		
-		try {
-			rs = stmt.executeQuery(select);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try{
-			while (rs.next()){
-			
-				
-			}
-		}
-		catch{
-			
-		}
-	}
-}	
+	
+	
+}

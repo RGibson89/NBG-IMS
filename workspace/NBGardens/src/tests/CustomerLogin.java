@@ -1,4 +1,4 @@
-package tests;
+package src.tests;
 
 
 import java.sql.ResultSet;
@@ -23,13 +23,10 @@ public class CustomerLogin {
 			e.printStackTrace();
 		}
 		
-		//fucking insecure
-		//String select = "SELECT Login Password FROM mydb.online Login Details where Login email = " + email + ";";
-		
-		String select = "SELECT `Customer_idCustomer` from `customer login details` WHERE `login email` ='" + email + "';";	
+		String select = "SELECT `idCustomer` from `customer` WHERE `Email` ='" + email + "';";	
 		
 		try {
-			 rs = stmt.executeQuery(select);
+			rs = stmt.executeQuery(select);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("AAAAAAAAAAA");
@@ -40,23 +37,9 @@ public class CustomerLogin {
 		try {
 			
 			while(rs.next()) {
-				int customerID = rs.getInt("Customer_idCustomer");
-				System.out.println(customerID);
+				int customerID = rs.getInt("idCustomer");
 				return customerID;
 		}
-			
-			
-			/*if (!rs.isBeforeFirst())
-			{
-				//this triggers if the email and password don't match, translate the returned int in the calling class
-				//"Login failed, incorrect username or password.";
-				return 0;
-			}
-			
-			else 
-			{
-				 
-			}*/
 			
 		} 
 		
