@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class SearchFunction {
 	
 	ArrayList<Product> productList;
+	ArrayList<Product> productListSorted;
 	String[] searchTerms;
 	
 	JComboBox<String> categoryBox; 
@@ -89,7 +90,7 @@ public class SearchFunction {
 			searchLine = searchLine + searchTerm + "', or '";
 		}
 		String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review"
-				+ " from PRODUCT WHERE Category = '" + category + "' and Description contains '" + searchLine + "' and WHERE price < " + scan(priceHigh, "high") + " and WHERE price > " + scan(priceLow, "low");
+				+ " from PRODUCT WHERE Category = '" + category + "' and Description contains '" + searchLine + "Squ1gg1e' and WHERE price < " + scan(priceHigh, "high") + " and WHERE price > " + scan(priceLow, "low");
 		
 		System.out.println(select);		
 		
@@ -120,12 +121,39 @@ public class SearchFunction {
 			int quantityInStock = rs.getInt("ProductStockQuantity");
 			int defaultStockQuantity = rs.getInt("DefaultStockLevel");
 			String minimumStockLevel = rs.getString("MinimumStockLevel");
-			int Review = rs.getInt("Review");
+			int review = rs.getInt("Review");
 			
-			Product product = new Product(productID, name, description, category, weight, price, productStatus, quantityInStock,  defaultStockQuantity, minimumStockLevel, Review);
-			productList.add(product);
+			productList.add(new Product(productID, name, description, category, weight, price, productStatus, quantityInStock,  defaultStockQuantity, minimumStockLevel, review));
 		}
 	}
+	public void sort(){
+		int relevanceMax = 0;
+		for (Product product: productList){
+			
+			int relevance = 0;
+		
+			for(String term: searchTerms){
+				if (product.name.contains(term)){
+					relevance++;
+				}	
+				if (product.description.contains(term)){
+					relevance++;
+				}
+			}
+				product.setRelevance(relevance);
+				if (relevance > relevanceMax) {
+					relevanceMax = relevance;
+				}
+		}
+		for (Product product: productList){
+			int relevance = product.getRelevance();
+			if (relevance = relevanceMax){
+				
+			}
+		}
+	}
+	
+	
 	
 	public double scan(String textBox, String highLow){
 		double x = 0;

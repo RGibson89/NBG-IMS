@@ -10,11 +10,14 @@ public class Product {
 	int quantityInStock;
 	int defaultStockQuantity;
 	String minimumStockLevel;
-	int Review;
+	int review;
+	int relevance;
 	
-	
-	
-	public Product(int productID, String name, String description, String category, double weight, double price, String productStatus, int quantityInStock,  int defaultStockQuantity, String minimumStockLevel, int Review) 
+
+
+
+
+	public Product(int productID, String name, String description, String category, double weight, double price, String productStatus, int quantityInStock,  int defaultStockQuantity, String minimumStockLevel, int review) 
 	{
 		this.productID = productID;
 		this.name = name;
@@ -25,7 +28,7 @@ public class Product {
 		this.quantityInStock = quantityInStock;
 		this.defaultStockQuantity = defaultStockQuantity;
 		this.minimumStockLevel = minimumStockLevel;
-		this.Review = Review;
+		this.review = review;
 	}
 	
 	
@@ -60,5 +63,15 @@ public class Product {
 	}
 	public String getMinimumStockLevel() {
 		return minimumStockLevel;
+	}	
+	public int getRelevance() {
+		return relevance;
 	}
+public void setRelevance(int relevance) {
+		this.relevance = relevance;
+	}
+	public int getReview() {
+		return review;
+	}
+
 }
