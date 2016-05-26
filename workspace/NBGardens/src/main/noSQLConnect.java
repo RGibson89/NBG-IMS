@@ -1,4 +1,4 @@
-package main;
+/*package main;
 
 import redis.clients.jedis.Jedis;
 
@@ -82,4 +82,4 @@ System.out.println("				      `-.__.-'     ");
     		
     		
 	}   
-}
+}*/
