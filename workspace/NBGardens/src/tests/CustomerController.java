@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.lang.String;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class CustomerController {
 
@@ -13,6 +15,7 @@ public class CustomerController {
 	private String forename;
 	private int credit;
 	private String status;
+	ArrayList wishList = new ArrayList();
 
 
 	//TODO - constructors
@@ -35,11 +38,9 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 		
-		//fucking insecure
-		//String select = "SELECT Login Password FROM mydb.online Login Details where Login email = " + email + ";";
-		
 		String select = "SELECT `Customer_idCustomer` FROM `Customer` WHERE `email` = \"" + email + "\" AND `password` "
 				+ "= \"" + password + "\"";
+		
 		
 		try {
 			 rs = stmt.executeQuery(select);
@@ -53,9 +54,8 @@ public class CustomerController {
 		try {
 			
 			while(rs.next()) {
-				int customerID = rs.getInt("Customer_idCustomer");
-				System.out.println(customerID);
-				return customerID;
+				idCustomer = rs.getInt("Customer_idCustomer");
+				return 1;
 		}
 			
 			
@@ -78,12 +78,13 @@ public class CustomerController {
 		
 			return 0;
 		}
+		return -1;
 		
 		//nb - close connections
 		
 		//This shouldn't trigger, just there so there is a return
 		//"Something has gone wrong with logging in";
-		return -1;
+		
 		
 		
 	}
@@ -146,4 +147,78 @@ public class CustomerController {
 		return this.credit;
 	
 	}
+	
+	public void createBasket(int idCustomer, String houseNumber, String postcode, boolean wishList){
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		BigDecimal pOrderValue = new BigDecimal(0.00);
+		BigDecimal pOrderPaid = new BigDecimal(0.00);
+		BigDecimal pOrderWeight = new BigDecimal(0.00);
+		
+		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String select = "INSERT INTO customerorder VALUES ( ,\""+ idCustomer + "\", \""+ houseNumber + "\", \""+ postcode + "\", "+ pOrderValue + ", " + pOrderPaid + ", " + pOrderWeight + ", " + wishList + ")" ;
+		
+		try {
+			stmt.executeUpdate(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String select1 = "SELECT idOrder from customerOrder" ;
+		
+		try {
+			stmt.executeQuery(select1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		
+	}
+	
+	public void viewBasket(int idOrder){
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String select = "SELECT * FROM customerorderline WHERE `Customer Order_idOrder` = " + idOrder;
+		String select1 = "SELECT OrderValue FROM customer order";
+		try {
+			stmt.executeQuery(select);
+			stmt.executeQuery(select1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+	}
+	
+	public void checkout(int idCustomer, int idOrder){
+		
+	}
+	
+	
+	
+	
 }
