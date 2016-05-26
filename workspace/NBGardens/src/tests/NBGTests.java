@@ -67,17 +67,36 @@ public class NBGTests {
 		/*
 		 * Tests to check if a customer is added when the register command completes
 		 */
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			CustomerController checkRegister = new CustomerController();
 			assertEquals(1,checkRegister.register("James", "Farrell", "1992-01-21", "1", "PP4 IC1", "West Midlands", "true", "07011111111", "james@farrell.com", "M", "hello"));
 			
 				
 			System.out.println("Registration auth -- correct data -- test - Passed");
-
+			String select2 = "DELETE FROM customer WHERE email =  'james@farrell.com'";
+			try {
+				stmt.executeUpdate(select2);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+			
 				
 		} catch(Exception exc) {
 			System.out.println("Registration auth -- correct data -- test - Failed");
 		}
+
+		
+
 		
 	}
 
