@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.lang.String;
 
@@ -37,7 +38,7 @@ public class CustomerController {
 		//fucking insecure
 		//String select = "SELECT Login Password FROM mydb.online Login Details where Login email = " + email + ";";
 		
-		String select = "SELECT `Customer_idCustomer` FROM `customer login details` WHERE `Login email` = \"" + email + "\" AND `Login password` "
+		String select = "SELECT `Customer_idCustomer` FROM `Customer` WHERE `email` = \"" + email + "\" AND `password` "
 				+ "= \"" + password + "\"";
 		
 		try {
@@ -98,7 +99,7 @@ public class CustomerController {
 	
 	}
 	
-	public void register(String forename, String surname, String _DoB, String houseNumber, String postcode, String creditCheck, String phoneNumber, String emailAddress, String gender, String password){
+	public int register(String forename, String surname, String _DoB, String houseNumber, String postcode, String county, String creditCheck, String phoneNumber, String emailAddress, String gender, String password){
 		
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -110,17 +111,30 @@ public class CustomerController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	Date date = new Date();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
-	String formattedDate = sdf.format(date);
-	String select = "INSERT INTO Customer VALUES ( , "+ forename + ", "+ surname + ", "+ _DoB + ", "+ houseNumber + ", "+ postcode + ", "+ creditCheck + ", \"active\", "+ phoneNumber + ", "+ emailAddress + ", 10000, "+ gender + ", "+ forename + ", " + formattedDate + ", " + passwordHash + ")" ;
+	String select = "INSERT INTO address VALUES ( \""+ postcode + "\", \""+ houseNumber + "\", null, null, null, \""+ county + "\")" ;
 	
 	try {
-		rs = stmt.executeQuery(select);
-		System.out.println("Thank you " + forename + " for joining NB Gardens!");
+		stmt.executeUpdate(select);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+		return 0;
+	}
+	
+	
+
+	Date date = Calendar.getInstance().getTime();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String formattedDate = sdf.format(date);
+	System.out.println(date);
+	String select1 = "INSERT INTO customer VALUES ( null, \""+ forename + "\", \""+ surname + "\", \""+ _DoB + "\", \""+ houseNumber + "\", \""+ postcode + "\", "+ creditCheck + ", \"active\", \""+ phoneNumber + "\", \""+ emailAddress + "\", 10000, \""+ gender + "\", \"" + formattedDate + "\", " + passwordHash + ")" ;
+	
+	try {
+		return stmt.executeUpdate(select1);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return 0;
 	}
 }
 	

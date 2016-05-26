@@ -3,9 +3,9 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -69,11 +69,14 @@ public class NBGTests {
 		 */
 		try {
 			CustomerController checkRegister = new CustomerController();
-			checkRegister.register("James", "Farrell", "1992-01-21", "1", "PP4 IC1", "passed", "07011111111", "james@farrell.com", "Male", "hello");
-			System.out.println("Login auth -- correct data -- test - Passed");
+			assertEquals(1,checkRegister.register("James", "Farrell", "1992-01-21", "1", "PP4 IC1", "West Midlands", "true", "07011111111", "james@farrell.com", "M", "hello"));
+			
+				
+			System.out.println("Registration auth -- correct data -- test - Passed");
+
 				
 		} catch(Exception exc) {
-			System.out.println("Login auth -- correct data -- test - Failed");
+			System.out.println("Registration auth -- correct data -- test - Failed");
 		}
 		
 	}
