@@ -22,7 +22,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class mongoConnect {
 
 	public static void main(String[] args) {
-	
+	 
 		  try {
 
 				/**** Connect to MongoDB ****/
