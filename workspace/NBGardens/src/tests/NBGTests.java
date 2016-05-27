@@ -82,8 +82,10 @@ public class NBGTests {
 				
 			System.out.println("Registration auth -- correct data -- test - Passed");
 			String select2 = "DELETE FROM customer WHERE email =  'james@farrell.com'";
+			String select3 = "DELETE FROM address WHERE postcode =  'PP4 IC1'";
 			try {
 				stmt.executeUpdate(select2);
+				stmt.executeUpdate(select3);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

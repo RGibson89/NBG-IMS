@@ -28,9 +28,6 @@ public class ConnectionManager {
 	    conn = DriverManager.getConnection( DB_URL, USER, PASS);
 	    System.out.println("Connected to database");
 	    System.out.println();
-	    
-	    
-	    
 	  } 
 	  catch (SQLException sqle) 
 	  {
