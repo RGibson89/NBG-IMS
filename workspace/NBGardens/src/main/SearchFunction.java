@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,12 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import java.sql.Statement;
-import java.util.ArrayList;
-
 public class SearchFunction {
 	
-	ArrayList<Product> productList;
+	ArrayList<Product> productList = new ArrayList<Product>();
 	ArrayList<Product> productListSorted;
 	String[] searchTerms;
 	
@@ -28,6 +27,21 @@ public class SearchFunction {
 	JTextField priceLowBox;
 	JTextField priceHighBox;
 	JFrame demoSearcher = new JFrame();
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public SearchFunction() {
+		
+	}
+	
+	
 	
 	public void demoSearch(){
 		
@@ -75,12 +89,12 @@ public class SearchFunction {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				demoSearcher.setVisible(false);
+				demoSearcher.dispose();
 			}
 		});
 	}
 	//begin search		
-	public void search(String category, String search, String priceLow, String priceHigh) throws SQLException{	
+	public void search(String cat, String search, String priceLow, String priceHigh) throws SQLException{	
 		
 		
 		String searchLine = "'";
@@ -91,8 +105,17 @@ public class SearchFunction {
 		for (String searchTerm: searchTerms){
 			searchLine = searchLine + searchTerm + "|";
 		}
+		
+		//if searching a department creates that part of the SQ
+		String category ="";
+		if (cat != "ALL")
+		{
+			category = "Category = '" + cat + "' and"; 
+		}
+		
+		//This is the query that will run
 		String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review"
-				+ " from product WHERE Category = '" + category + "' and Description REGEXP " + searchLine + "Squ1gg1e' and price < " + scan(priceHigh, "high") + " and price > " + scan(priceLow, "low") +";";
+				+ " from product WHERE " + category + " Description REGEXP " + searchLine + "Squiggle' and price < " + scan(priceHigh, "high") + " and price > " + scan(priceLow, "low") +";";
 		
 		System.out.println(select);		
 		
@@ -113,7 +136,9 @@ public class SearchFunction {
 			e.printStackTrace();
 		}	
 		
-		while (rs.next());{
+		
+		while (rs.next()){
+
 			int productID = rs.getInt("idProduct");
 			String name = rs.getString("Name");
 			String description = rs.getString("Description");
@@ -123,11 +148,22 @@ public class SearchFunction {
 			String productStatus = rs.getString("ProductStatus");
 			int quantityInStock = rs.getInt("ProductStockQuantity");
 			int defaultStockQuantity = rs.getInt("DefaultStockLevel");
-			String minimumStockLevel = rs.getString("MinimumStockLevel");
+			int minimumStockLevel = rs.getInt("MinimumStockLevel");
 			int review = rs.getInt("Review");
 			
+			
+			//adds all the products to a list
 			productList.add(new Product(productID, name, description, category, weight, price, productStatus, quantityInStock,  defaultStockQuantity, minimumStockLevel, review));
+			
 		}
+		
+		
+		//prints out product names, not needed for final product
+		for (Product p : productList)
+		{
+			System.out.println(p.getName());
+		}
+		
 	}
 	public void sort(){
 		int relevanceMax = 0;
@@ -176,3 +212,4 @@ public class SearchFunction {
 		return x;
 	}
 }
+
