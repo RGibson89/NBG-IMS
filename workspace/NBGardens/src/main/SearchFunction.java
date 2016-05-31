@@ -75,7 +75,7 @@ public class SearchFunction {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				demoSearcher.dispose();
+				demoSearcher.setVisible(false);
 			}
 		});
 	}
@@ -89,7 +89,7 @@ public class SearchFunction {
 		
 		//create a search line checking for any of the searched terms	
 		for (String searchTerm: searchTerms){
-			searchLine = searchLine + searchTerm;// + "|";
+			searchLine = searchLine + searchTerm + "|";
 		}
 		String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review"
 				+ " from product WHERE Category = '" + category + "' and Description REGEXP " + searchLine + "Squ1gg1e' and price < " + scan(priceHigh, "high") + " and price > " + scan(priceLow, "low") +";";
