@@ -22,9 +22,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class mongoConnect {
 
 	public static void main(String[] args) {
-	
+	 
 		  try {
-
+    
 				/**** Connect to MongoDB ****/
 				// Since 2.10.0, uses MongoClient
 				MongoClient mongo = new MongoClient(new ServerAddress("192.168.1.149", 27017));

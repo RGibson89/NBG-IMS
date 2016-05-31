@@ -100,7 +100,7 @@ public class CustomerController {
 	
 	}
 	
-	public int register(String forename, String surname, String _DoB, String houseNumber, String postcode, String county, String creditCheck, String phoneNumber, String emailAddress, String gender, String password){
+	public int register(String forename, String surname, String _DoB, String houseNumber, String postcode, String phoneNumber, String emailAddress, String password){
 		
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -112,7 +112,7 @@ public class CustomerController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	String select = "INSERT INTO address VALUES ( \""+ postcode + "\", \""+ houseNumber + "\", null, null, null, \""+ county + "\")" ;
+	String select = "INSERT INTO address VALUES ( \""+ postcode + "\", \""+ houseNumber + "\", null, null, null, null)" ;
 	
 	try {
 		stmt.executeUpdate(select);
@@ -128,7 +128,7 @@ public class CustomerController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String formattedDate = sdf.format(date);
 	System.out.println(date);
-	String select1 = "INSERT INTO customer VALUES ( null, \""+ forename + "\", \""+ surname + "\", \""+ _DoB + "\", \""+ houseNumber + "\", \""+ postcode + "\", "+ creditCheck + ", \"active\", \""+ phoneNumber + "\", \""+ emailAddress + "\", 10000, \""+ gender + "\", \"" + formattedDate + "\", " + passwordHash + ")" ;
+	String select1 = "INSERT INTO customer VALUES ( null, \""+ forename + "\", \""+ surname + "\", \""+ _DoB + "\", \""+ houseNumber + "\", \""+ postcode + "\", "+ true + ", \"active\", \""+ phoneNumber + "\", \""+ emailAddress + "\", 10000, null, \"" + formattedDate + "\", " + passwordHash + ")" ;
 	
 	try {
 		return stmt.executeUpdate(select1);
