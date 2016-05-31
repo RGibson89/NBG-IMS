@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.lang.String;
 
@@ -12,6 +13,7 @@ public class CustomerController {
 	private String forename;
 	private int credit;
 	private String status;
+	private ArrayList basket = new ArrayList();
 
 
 	//TODO - constructors
@@ -125,4 +127,51 @@ public class CustomerController {
 		return this.credit;
 	
 	}
+
+	public void addToBasket(int idProduct){
+		basket.add(idProduct);
+	}
+	
+	public void addToWishlist(){
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String select = "SELECT idOrder FROM customerorder WHERE Customer_idCustomer = " + idCustomer + "AND wishlist = 1" ;
+		
+		try {
+			rs = stmt.executeQuery(select);
+			System.out.println("Thank you " + forename + " for joining NB Gardens!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
+	public void viewBasket(){
+		
+	}
+	
+	public void viewWishlist(){
+		
+	}
+	
+	public void moveWishlistToBasket(){
+		
+	}
+	
+	public void processPayment(){
+		
+	}
+	
 }
