@@ -70,7 +70,7 @@ public class mongoConnect {
 		
 		Pattern p = Pattern.compile(searchInput+".*");
 		BasicDBObject query = new BasicDBObject(search, p);
-		
+		 
 		//BasicDBObject query = new BasicDBObject("Description", "$Jac");
 		DBCursor cursor = coll.find(query);
 
