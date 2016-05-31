@@ -32,35 +32,20 @@ public class mongoConnect {
 				/**** Get database ****/
 				// if database doesn't exists, MongoDB will create it for you
 				DB db = mongo.getDB("product");
+				DBCollection product = db.getCollection("product");
+				
+				BasicDBObject whereQuery = new BasicDBObject();
+		        whereQuery.put("Name", 5);
+		        BasicDBObject fields = new BasicDBObject();
+		        fields.put("Name", "Gnome");
+				
+				DBCursor cursor = product.find(whereQuery, fields);
+		        while(cursor.hasNext()) {
+		            System.out.println(cursor.next());
+		        }
 				
 				System.out.println("Connected to " + db);
-				
-				
-				
-				List<String> dbs = mongo.getDatabaseNames();
-				for(String ss : dbs){
-					System.out.println(ss);
-					
-					
-					DBCollection table = db.getCollection("product");
-
-					BasicDBObject searchQuery = new BasicDBObject();
-					searchQuery.put("description", "Zombie Gnome");
-
-					DBCursor cursor = table.find(searchQuery);
-
-					while (cursor.hasNext()) {
-						System.out.println(cursor.next());
-				}
-				
-				
-				
-				
-				}
-				
-				
-				
-				
+						
 		  } catch (Exception e) {
 				e.printStackTrace();
 }
