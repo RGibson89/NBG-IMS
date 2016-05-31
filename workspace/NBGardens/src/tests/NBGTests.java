@@ -97,11 +97,24 @@ public class NBGTests {
 			System.out.println("Registration auth -- correct data -- test - Failed");
 		}
 
+	}
+	
+	@Test
+	public void checkMongoDBConnection() {
+		/*
+		 * Tests to check the no SQL database 'MongoDB' connection.
+		 */
 		
-
+		mongoConnect mc = new mongoConnect();
+		
+		try {
+			mc.main(null);
+		} catch(Exception exc) {
+			System.out.println("checkProduct test failed -- with exception: " + exc);
+		}
 		
 	}
+	
+	
 
-	
-	
 }
