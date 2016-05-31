@@ -134,10 +134,11 @@ public class CustomerController {
 	}
 	
 	public void addToWishlist(int idProduct, int quantity){
+		
 		Statement stmt = null;
 		ResultSet rs = null;
 		int idOrder = 0;
-		BigDecimal price = new BigDecimal(0000.00);
+		BigDecimal price = null;
 		double weight = 0.00;
 		try {
 			stmt = ConnectionManager.conn.createStatement();
@@ -185,15 +186,60 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 		
-		
-		
 	}
 	
 	public void viewBasket(){
 		
+		Statement stmt = null;
+		ResultSet rs = null;
+		String productName;
+		BigDecimal productPrice;
+		String productDescription;
+
+		try {
+			stmt = ConnectionManager.conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i=0; i<basket.size();i++)
+		{
+			String select = "SELECT Name FROM product WHERE idProduct = " + basket.get(i);
+			
+			try {
+				rs = stmt.executeQuery(select);
+				productName = rs.getString("Name");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String select1 = "SELECT Price FROM product WHERE idProduct = " + basket.get(i);
+			
+			try {
+				rs = stmt.executeQuery(select1);
+				productPrice = rs.getBigDecimal("Price");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String select2 = "SELECT Description FROM product WHERE idProduct = " + basket.get(i);
+			
+			try {
+				rs = stmt.executeQuery(select2);
+				productDescription = rs.getString("Name");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 	
 	public void viewWishlist(){
+		
 		
 	}
 	
