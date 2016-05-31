@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.lang.String;
+import java.math.BigDecimal;
 
 public class CustomerController {
 
@@ -132,10 +133,12 @@ public class CustomerController {
 		basket.add(idProduct);
 	}
 	
-	public void addToWishlist(){
+	public void addToWishlist(int idProduct, int quantity){
 		Statement stmt = null;
 		ResultSet rs = null;
-		
+		int idOrder = 0;
+		BigDecimal price = new BigDecimal(0000.00);
+		double weight = 0.00;
 		try {
 			stmt = ConnectionManager.conn.createStatement();
 		} catch (SQLException e) {
@@ -147,12 +150,40 @@ public class CustomerController {
 		
 		try {
 			rs = stmt.executeQuery(select);
-			System.out.println("Thank you " + forename + " for joining NB Gardens!");
+			idOrder = rs.getInt("idOrder");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		String select1 = "SELECT Price FROM Product WHERE idProduct = " + idProduct;
+		
+		try {
+			rs = stmt.executeQuery(select1);
+			price = rs.getBigDecimal("Price");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String select2 = "SELECT Weight FROM Product WHERE idProduct = " + idProduct;
+		
+		try {
+			rs = stmt.executeQuery(select2);
+			weight = rs.getDouble("Weight");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String insert = "INSERT INTO customerorderline VALUES (, "+ idOrder + ", "+ idProduct + ","+ quantity + ","+ price + ","+ weight + ") WHERE `Customer Order_idOrder` = " + idOrder;
+		
+		try {
+			stmt.executeUpdate(insert);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
