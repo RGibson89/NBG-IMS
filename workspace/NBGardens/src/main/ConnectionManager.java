@@ -5,10 +5,12 @@ import java.sql.*;
 public class ConnectionManager {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/myDB";
+	static final String DB_URL = "jdbc:mysql://192.168.1.102:3306/ngb";
+	
+	//db2.modwest.com
 	
 	static final String USER = "root";
-	static final String PASS = "1234";
+	static final String PASS = "NBGletmein16";
 	
 	static Connection conn = null;
 	static Statement stmt = null;

@@ -27,18 +27,18 @@ public class SearchFunction {
 	JTextField searchBar;
 	JTextField priceLowBox;
 	JTextField priceHighBox;
+	JFrame demoSearcher = new JFrame();
 	
 	public void demoSearch(){
 		
 		//Create a GUI to input search terms
-		JFrame demoSearch = new JFrame();
-		demoSearch.setTitle("Demonstration Search Bar");
+		demoSearcher.setTitle("Demonstration Search Bar");
 		JPanel top = new JPanel();
-		demoSearch.add(top, BorderLayout.NORTH);
+		demoSearcher.add(top, BorderLayout.NORTH);
 		JLabel demoInstruction = new JLabel("Search within:");
 		top.add(demoInstruction, BorderLayout.WEST);
 		JPanel mid = new JPanel();
-		demoSearch.add(mid, BorderLayout.CENTER);
+		demoSearcher.add(mid, BorderLayout.CENTER);
 		String[] categories = new String[] {"Gnomes", "Plants and Seeds", "Garden Tools", "Furnature", "Pools and Hot-tubs", "Garden Care"};
 		categoryBox = new JComboBox<String>(categories);
 		categoryBox.setPreferredSize(new Dimension (150, 30));
@@ -50,15 +50,15 @@ public class SearchFunction {
 		go.setPreferredSize(new Dimension (51, 30));
 		mid.add(go);
 		JPanel bot = new JPanel();
-		demoSearch.add(bot, BorderLayout.SOUTH);
+		demoSearcher.add(bot, BorderLayout.SOUTH);
 		bot.add(new JLabel("For products between £"));
 		priceLowBox = new JTextField("0.00");
 		bot.add(priceLowBox);
 		bot.add(new JLabel(" and £"));
 		priceHighBox = new JTextField("10000.00");
 		bot.add(priceHighBox);
-		demoSearch.pack();
-		demoSearch.setVisible(true);
+		demoSearcher.pack();
+		demoSearcher.setVisible(true);
 		go.addActionListener(new ActionListener(){
 			
 			//add an action listener to initiate searches
@@ -70,10 +70,12 @@ public class SearchFunction {
 				String priceHigh = priceHighBox.getText();
 				try {
 					search(category, searchLine, priceLow, priceHigh);
-				} catch (SQLException e1) {
+				}
+				catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}	
+				}
+				demoSearcher.dispose();
 			}
 		});
 	}
@@ -81,20 +83,21 @@ public class SearchFunction {
 	public void search(String category, String search, String priceLow, String priceHigh) throws SQLException{	
 		
 		
-		String searchLine = "";
+		String searchLine = "'";
 		//split the search term into an array of terms
 		searchTerms = search.split(" ");
 		
 		//create a search line checking for any of the searched terms	
 		for (String searchTerm: searchTerms){
-			searchLine = searchLine + searchTerm + "', or '";
+			searchLine = searchLine + searchTerm;// + "|";
 		}
 		String select = "select idProduct, Name, Description, Category, Weight, Price, ProductStatus, ProductStockQuantity, DefaultStockLevel, MinimumStockLevel, Review"
-				+ " from PRODUCT WHERE Category = '" + category + "' and Description contains '" + searchLine + "Squ1gg1e' and WHERE price < " + scan(priceHigh, "high") + " and WHERE price > " + scan(priceLow, "low");
+				+ " from product WHERE Category = '" + category + "' and Description REGEXP " + searchLine + "Squ1gg1e' and price < " + scan(priceHigh, "high") + " and price > " + scan(priceLow, "low") +";";
 		
 		System.out.println(select);		
 		
 		//create an SQL connection and apply search line
+		ConnectionManager.connect();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
