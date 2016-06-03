@@ -7,6 +7,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import main.SearchFunction;
+
 import org.junit.Test;
 
 
@@ -113,6 +115,21 @@ public class NBGTests {
 			System.out.println("checkProduct test failed -- with exception: " + exc);
 		}
 		
+	}
+	
+	@Test
+	public void checkSearchFunction() {
+		/*
+		 * Tests to check the SearchFunction class.
+		 */
+		
+		SearchFunction search = new SearchFunction();
+		
+		try {
+			search.search("Gnome' or 'Tools", "Girl Spade", "0", "1000");
+		} catch(Exception exc) {
+			exc.printStackTrace();
+		}
 	}
 	
 	
